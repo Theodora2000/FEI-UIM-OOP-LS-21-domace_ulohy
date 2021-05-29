@@ -36,13 +36,13 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
         int dx = e.getX();
         int dy = e.getY();
 
-        if(actLine != null){
-                actLine.setX2(dx);
-                actLine.setY2(dy);
-                repaint();
-
+            if(actLine != null){
+                    actLine.setX2(dx);
+                    actLine.setY2(dy);
+                    repaint();
+            }
         }
-    }
+
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -56,6 +56,8 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
 
     @Override
     public void mousePressed(MouseEvent e) {
+
+
             xpos = e.getX();
             ypos = e.getY();
             actLine = new DrawLine(xpos, ypos, 1, 1, Color.red);
