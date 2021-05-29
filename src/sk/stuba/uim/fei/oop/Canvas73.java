@@ -12,6 +12,7 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
     public ArrayList<DrawLine> our_lines = new ArrayList<DrawLine>();
     DrawLine actLine;
     int xpos= 0, ypos =0;
+    private boolean right_clicked=false;
 
     public Canvas73(){
         super();
@@ -36,13 +37,23 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
         int dx = e.getX();
         int dy = e.getY();
 
-            if(actLine != null){
-                    actLine.setX2(dx);
-                    actLine.setY2(dy);
-                    repaint();
+        if (right_clicked) {
+            if (actLine != null) {
+                actLine.setX2(xpos);
+                actLine.setY2(ypos);
+                repaint();
+            }
+
+        } else {
+
+            if (actLine != null) {
+                actLine.setX2(dx);
+                actLine.setY2(dy);
+                repaint();
             }
         }
-
+        right_clicked=false;
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -57,10 +68,14 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {
 
+        if(e.getButton() == MouseEvent.BUTTON3){
+
+            right_clicked=true;
+        }
 
             xpos = e.getX();
             ypos = e.getY();
-            actLine = new DrawLine(xpos, ypos, 1, 1, Color.red);
+            actLine = new DrawLine(xpos, ypos, xpos, ypos, Color.red);
 
     }
 

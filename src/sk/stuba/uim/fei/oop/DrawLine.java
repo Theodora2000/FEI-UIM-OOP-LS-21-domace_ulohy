@@ -22,6 +22,13 @@ public class DrawLine {
     }
 
     public void drLine(Graphics g){
+        /*float[] dashingPattern1 = {2f, 2f};
+            Stroke stroke1 = new BasicStroke(2f, BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_MITER, 1.0f, dashingPattern1, 2.0f);
+
+            g2d.setStroke(stroke1);
+            g2d.drawLine(120, 50, 360, 50);*/
+
         g.setColor(color);
         g.drawLine(this.x,this.y, this.x2, this.y2);
     }
