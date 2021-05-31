@@ -1,6 +1,6 @@
 package sk.stuba.uim.fei.oop;
 
-import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,17 +34,18 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
     @Override
     public void mouseDragged(MouseEvent e) {
 
-        int dx = e.getX();
-        int dy = e.getY();
-
-        if (right_clicked) {
+       /* if(right_clicked){
             if (actLine != null) {
                 actLine.setX2(xpos);
                 actLine.setY2(ypos);
                 repaint();
             }
-
-        } else {
+            right_clicked=false;
+            return;
+        }else{*/
+        if(!right_clicked){
+            int dx = e.getX();
+            int dy = e.getY();
 
             if (actLine != null) {
                 actLine.setX2(dx);
@@ -52,7 +53,7 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
                 repaint();
             }
         }
-        right_clicked=false;
+
     }
 
     @Override
@@ -69,13 +70,16 @@ public class Canvas73 extends Canvas implements MouseMotionListener, MouseListen
     public void mousePressed(MouseEvent e) {
 
         if(e.getButton() == MouseEvent.BUTTON3){
-
             right_clicked=true;
-        }
-
             xpos = e.getX();
             ypos = e.getY();
             actLine = new DrawLine(xpos, ypos, xpos, ypos, Color.red);
+
+        }else {
+            xpos = e.getX();
+            ypos = e.getY();
+            actLine = new DrawLine(xpos, ypos, xpos, ypos, Color.red);
+        }
 
     }
 
