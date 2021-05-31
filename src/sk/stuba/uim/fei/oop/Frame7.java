@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Frame7 extends JFrame implements ActionListener, MouseListener {
+public class Frame7 extends JFrame implements ActionListener{
 
     JButton close;
     JButton draw;
     JButton click;
     JPanel buttons;
+    public Canvas7 can;
     private boolean clicked=false;
     private boolean clicked_draw=false;
 
@@ -26,7 +27,6 @@ public class Frame7 extends JFrame implements ActionListener, MouseListener {
         close.addActionListener(this);
         draw.addActionListener(this);
         click.addActionListener(this);
-        addMouseListener(this);
 
         buttons = new JPanel();
         buttons.setLayout(new GridLayout(0,1));
@@ -34,8 +34,9 @@ public class Frame7 extends JFrame implements ActionListener, MouseListener {
         buttons.add(draw);
         buttons.add(click);
 
-
         add(BorderLayout.WEST, buttons);
+        can = new Canvas7();
+        add(BorderLayout.CENTER, can);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -56,52 +57,22 @@ public class Frame7 extends JFrame implements ActionListener, MouseListener {
         }
         if(e.getActionCommand().equals("Draw")){
             if(!clicked_draw) {
-                add(BorderLayout.CENTER, new Canvas7());
+                if(can!=null) {
+                    can.setX(150);
+                    can.setY(250);
+                    can.setWidth(100);
+                    can.setHeight(100);
+                    can.repaint();
+                }
                 validate();
             }
 
         }
         if(e.getActionCommand().equals("Click")){
            clicked= true;
+
         }
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(clicked) {
-            int x = e.getX();
-            int y = e.getY();
-            JFrame novy = new JFrame();
-            novy.setSize(150, 150);
-
-            JTextField coordinates = new JTextField();
-            coordinates.setSize(10, 10);
-            coordinates.setText(x + "," + y);
-
-            novy.add(coordinates);
-            novy.setVisible(true);
-            clicked=false;
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
