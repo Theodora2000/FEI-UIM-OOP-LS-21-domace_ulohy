@@ -2,14 +2,12 @@ package sk.stuba.uim.fei.oop;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 
 public class Frame82 extends JFrame implements ActionListener , ItemListener {
 
     private boolean selectedChoice;
+    public TestCanvas81 can;
     JPanel colorsChoice;
     Choice pickColor;
     String c[] ={"red", "blue", "green", "cyan"};
@@ -68,44 +66,28 @@ public class Frame82 extends JFrame implements ActionListener , ItemListener {
         }
         pickColor.addItemListener(this);
         colorsChoice.add(pickColor);
+        can = new TestCanvas81();
+        add(BorderLayout.CENTER, can);
 
-        add(BorderLayout.WEST, colorsChoice);
+        add(BorderLayout.SOUTH, colorsChoice);
         add(BorderLayout.NORTH, colors);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
 
         setVisible(true);
     }
-
-    public void paint(Graphics gr) {
-        if(selectedChoice){
-            if(pickColor.getSelectedItem().equals("red")) {
-                gr.setColor(Color.red);
-            }else if(pickColor.getSelectedItem().equals("blue")){
-                gr.setColor(Color.blue);
-            }
-            else if(pickColor.getSelectedItem().equals("green")){
-                gr.setColor(Color.green);
-            }else{
-                gr.setColor(Color.cyan);
-            }
-
-            selectedChoice=false;
-        }else {
-            Color newC = new Color(redC, greenC, blueC);
-            gr.setColor(newC);
-        }
-        gr.drawLine(120,340,278,357);
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Set color")){
 
-            redC = Integer.parseInt(red.getText());
-            greenC = Integer.parseInt(green.getText());
-            blueC = Integer.parseInt(blue.getText());
+            can.setCurrentColor(new Color((Integer.parseInt(red.getText())), Integer.parseInt(green.getText()),Integer.parseInt(blue.getText())));
             repaint();
-            System.out.println("RGB: "+redC+","+greenC+","+blueC);
+
         }
     }
 
@@ -113,7 +95,17 @@ public class Frame82 extends JFrame implements ActionListener , ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if(e.getSource() == pickColor){
-            selectedChoice=true;
+            if(pickColor.getSelectedItem().equals("red")){
+                can.setCurrentColor(Color.red);
+            }else if(pickColor.getSelectedItem().equals("green")){
+                can.setCurrentColor(Color.green);
+            }
+            else if(pickColor.getSelectedItem().equals("blue")){
+                can.setCurrentColor(Color.blue);
+            }
+            else if(pickColor.getSelectedItem().equals("cyan")){
+                can.setCurrentColor(Color.cyan);
+            }
             repaint();
         }
     }
