@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Frame81 extends JFrame implements ActionListener {
 
-
+    public TestCanvas81 can;
     JTextField red;
     JTextField green;
     JTextField blue;
@@ -56,26 +58,23 @@ public class Frame81 extends JFrame implements ActionListener {
         colors.add(col);
 
         add(BorderLayout.NORTH, colors);
+        can = new TestCanvas81();
+        add(BorderLayout.CENTER,can);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
 
         setVisible(true);
-    }
-
-    public void paint(Graphics gr) {
-        Color newC = new Color(redC,greenC,blueC);
-        gr.setColor(newC);
-        gr.drawLine(120,340,278,357);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Set color")){
-
-            redC = Integer.parseInt(red.getText());
-            greenC = Integer.parseInt(green.getText());
-            blueC = Integer.parseInt(blue.getText());
-            repaint();
-            System.out.println("RGB: "+redC+","+greenC+","+blueC);
+            can.setCurrentColor(new Color(Integer.parseInt(red.getText()), Integer.parseInt(green.getText()),Integer.parseInt(blue.getText()) ));
         }
     }
 }
